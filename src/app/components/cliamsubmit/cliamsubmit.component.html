@@ -1,0 +1,52 @@
+<app-header></app-header>
+
+<div class="card m-3">
+    <h5 class="card-header" style="text-align: center;color: cornflowerblue;">Cliam Submission</h5>
+    <div class="card-body" style="padding-left: 30%;">
+       <h6>MemberId:{{memberid}}</h6>&nbsp;&nbsp;&nbsp;
+       <form [formGroup]="cliamSubmissionForm" (ngSubmit)="submitCliam()">
+       <div class="form-group col-5">
+        <label>Cliam Type</label>
+       <select  class="form-select" formControlName="cliamtype">
+        <option value="#">----Select----</option>
+        <option value="Vision">Vision</option>
+        <option value="Dental">Dental</option>
+        <option value="Medical">Medical</option>
+      </select>
+      <div *ngIf="f.cliamtype.touched && f.cliamtype.invalid" class="alert alert-danger">
+        <div *ngIf="f.cliamtype.errors?.required">Cliam Type is required.</div>
+</div>
+</div>
+
+<div class="form-group col-5">
+    <label>Cliam Amount</label>
+    <input type="number" class="form-control" formControlName="cliamamt"/>
+    <div *ngIf="f.cliamamt.touched && f.cliamamt.invalid" class="alert alert-danger">
+        <div *ngIf="f.cliamamt.errors?.required">Cliam Amount is required.</div>
+        <div *ngIf="f.cliamamt.errors?.pattern">Enter only number.</div>
+    </div>
+</div>
+
+
+<div class="form-group col-5">
+    <label>Remarks</label>
+    <textarea class="form-control" formControlName="remarks"></textarea>
+    <div *ngIf="f.remarks.touched && f.remarks.invalid" class="alert alert-danger">
+        <div *ngIf="f.remarks.errors?.required">Remarks is required.</div>
+       <div *ngIf="f.remarks.errors?.maxlength">allowed only 1000 chracters to entered</div>
+       <div *ngIf="f.remarks.errors?.pattern">only alphabets are allowed</div>
+    </div>
+    </div>
+
+    <div class="form-group col-5">
+        <label>CLiam Date</label>
+       <input type="date" class="form-control" [max]="getToday()" formControlName="cliamdate" >
+       <div *ngIf="f.cliamdate.touched && f.cliamdate.invalid" class="alert alert-danger">
+        <div *ngIf="f.cliamdate.errors?.required">please select the Cliam Date.</div>
+       </div>
+        </div><br>
+        <button type="button" class="btn btn-secondary" (click)="resetFormData()">Cancel</button>&nbsp;&nbsp;
+        <button type="submit" class="btn btn-success" [disabled]="cliamSubmissionForm.invalid">Submit</button>
+    </form>
+    </div>
+    </div>

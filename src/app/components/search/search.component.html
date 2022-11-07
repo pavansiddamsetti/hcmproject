@@ -1,0 +1,94 @@
+<app-header></app-header>
+<div class="card m-3">
+    <h5 class="card-header" style="text-align: center;color: cornflowerblue;">Search Member</h5>
+    <div class="card-body" style="padding-left: 30%;">
+        <span *ngIf="errMsg" style="color: red;">please enter atleast one filed</span>
+        <form [formGroup]="searchmember" (ngSubmit)="searchMember()">
+            <div class="form-group col-5">
+                <label>Memberid</label>
+                <input type="text" formControlName="memberid" class="form-control" />
+                <!-- <div *ngIf="submitted && f.memberid.errors" class="invalid-feedback">
+                    <div *ngIf="f.memberid.errors.required">MemberId  is required</div>
+                </div> -->
+            </div>
+
+
+              <div class="form-group col-5">
+                <label>First Name</label>
+                <input type="text" formControlName="firstName" class="form-control"  />
+               
+            </div>
+            <div class="form-group col-5">
+                <label>Last Name</label>
+                <input type="text" formControlName="lastName" class="form-control"  />
+               
+                </div>
+            
+            <div class="form-group col-5">
+                <label>Physician</label>
+                <select formControlName="physician"  class="form-select">
+                    <option value=""></option>
+                    <option value="John">John</option>
+                    <option value="Hari">Hari</option>
+                    <option value="Mittal">Mittal</option>
+                    <option value="Patrick">Patrick</option>
+                    <option value="Mark">Mark</option>
+                    <option value="Jessica">Jessica</option>
+                    <option value="Mary">Mary</option>
+                    <option value="Stacy">Stacy</option>
+                </select>
+            </div>
+            <div class="form-group col-5">
+                <label>Claim Id</label>
+                <input type="text" formControlName="claimid" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-success">Search</button>
+        </form>
+</div>
+</div>
+
+<table class="table table-success table-striped">
+    <thead>
+        <tr>
+            <th>MemberId</th>
+            <th>FirstName</th>
+            <th>LastName</th>
+            <th>Assigned Physician</th>
+            <th>Cliam Id</th>
+            <th>Claim Amt</th>
+            <th>Submitted Date</th>
+            <th>Select Member</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor = "let member of searchData  | paginate
+        : {
+            itemsPerPage: tableSize,
+            currentPage: page,
+            totalItems: count
+          };
+    let i = index">
+            <td>{{member.memberid}}</td>
+            <td>{{member.firstName}}</td>
+            <td>{{member.lastName}}</td>
+            <td>{{member.physician}}</td>
+            <td>{{member.cliamid}}</td>
+            <td>{{member.cliamamount}}</td>
+            <td>{{member.submmissionDate}}</td>
+            <td><div class="form-check">
+                <input class="form-check-input" type="checkbox" (click)="getSelectedRowData(member)">
+                
+              </div></td>
+        </tr>
+
+    </tbody>
+  </table>
+  <div class="d-flex justify-content-center">
+    <pagination-controls
+      previousLabel="Prev"
+      nextLabel="Next"
+      (pageChange)="onTableDataChange($event)"
+    >
+    </pagination-controls>
+  </div>
+<button type="button" class="btn btn-primary" (click)="submitCliam()">Submit Cliam</button>

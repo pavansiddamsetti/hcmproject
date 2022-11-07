@@ -1,0 +1,46 @@
+<app-header></app-header>
+<div class="shadow">
+<h6 style="text-align: center;color: orange;font-size: large;">Sign In</h6>
+<span class="line"></span><br>
+    <form #userName="ngForm" (ngSubmit)="signIn(userName.value)"> 
+        <div class="form-group"
+        [ngClass]="{
+   'has-danger': username.invalid && (username.dirty || username.touched),
+   'has-success': username.valid && (username.dirty || username.touched)
+}">
+
+<div class="mb-3">
+  <label for="username" class="form-label">UserName:</label>    
+      <input type="text" name="username" class="form-control" placeholder="Enter username" id="username" autocomplete="off"   [(ngModel)]="login.username"  #username="ngModel" required/><br>
+        <div class="form-control-feedback"
+        *ngIf="username.errors && (username.dirty || username.touched)">
+     <p *ngIf="username.errors.required">Username is required</p>
+    </div>
+</div>
+   </div>
+   <div class="form-group"
+   [ngClass]="{
+'has-danger': username.invalid && (username.dirty || username.touched),
+'has-success': username.valid && (username.dirty || username.touched)
+}">
+<div class="mb-3">
+    <label for="password" class="form-label">Password:</label>
+        <input type="password" name="password" class="form-control" placeholder="enter password" [(ngModel)]="login.password"  #password="ngModel" required/><br>
+        <div class="form-control-feedback"
+        *ngIf="password.errors && (password.dirty || password.touched)">
+     <p *ngIf="password.errors.required">Password is required</p>
+    </div>
+      </div>
+      </div>
+        <button type="submit"
+        class="btn btn-primary"[disabled]="userName.invalid"
+       >SIGN IN
+</button>
+        
+     </form>
+     <br>
+     <span class="line"></span>
+     <h5>New User?</h5>
+     <button type="button"><a routerLink="/register">Register</a></button>
+</div>
+
